@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} P1 {% endblock %}</h1>
+    <h1>Proyecto Uno</h1>
+    <h2>Welcome to Proyecto Uno!</h2>
+
+    <form method="post">
+      <label for="conjunto1">Conjunto 1</label>
+      <br>
+      <input type="text" name="conjunto1"
+             placeholder="Conjunto 1"
+             value="{{ request.form['conjunto1'] }}"></input>
+      <br>
+      
+      <label for="conjunto2">Conjunto 2</label>
+      <br>
+      <textarea name="conjunto2"
+                placeholder="Conjunto 2"
+                rows="15"
+                cols="60"
+                >{{ request.form['conjunto2'] }}</textarea>
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+
+    {% for resultado in resultados %}
+    <div style="padding: 10px;
+                background-color: #EEE;
+                margin: 20px">
+      <p style="font-size: 24px">{{ resultado | upper }}</p>
+    </div>
+    {% endfor %}
+    
+{% endblock %}

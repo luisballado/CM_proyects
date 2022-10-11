@@ -1,5 +1,7 @@
 .gitignore
 .DS_store
+*.pyc
 node_modules
 *.py~
+*.html~
 venv/*
