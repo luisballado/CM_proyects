@@ -1,7 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} P2 {% endblock %}</h1>
+    <h1>{% block title %} P2 &#128128; {% endblock %}</h1>
     <h1>Proyecto DOS</h1>
     <h2>Welcome to Proyecto DOS!</h2>
+    
+    <div class="table-responsive">
+      <table class="table">
+	<caption>Lista de resultados</caption>
+	<thead>
+	  <tr>
+	    <th scope="col">#</th>
+	    <th scope="col">Pares Ordenados</th>
+	    <th scope="col">Relación</th>
+	    <th scope="col">Función</th>
+	    <th scope="col">Fn Inyectiva</th>
+	    <th scope="col">Fn Suprayectiva</th>
+	    <th scope="col">Fn Biyectiva</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <th scope="row">1</th>
+	    <td>{(),()}</td>
+	    <td style="color:Tomato;">&#10007;</td>
+	    <td style="color:Green">&#10003;</td>
+	    <td style="color:Tomato;">&#10007;</td>
+	    <td style="color:Tomato;">&#10007;</td>
+	    <td style="color:Tomato;">&#10007;</td>
+	  </tr>
+	  <tr>
+	    <th scope="row">2</th>
+	    <td>{(),()}</td>
+	    <td style="color:Tomato;">&#10007;</td>
+	    <td style="color:Tomato;">&#10007;</td>
+	    <td style="color:Green">&#10003;</td>
+	    <td style="color:Tomato;">&#10007;</td>
+	    <td style="color:Green">&#10003;</td>
+	  </tr>
+	</tbody>
+      </table>
+    </div>
 {% endblock %}

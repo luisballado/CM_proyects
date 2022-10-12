@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} P1 {% endblock %}</h1>
+    <h1>{% block title %} P1 &#128128; {% endblock %}</h1>
     <h1>Proyecto Uno</h1>
     <h2>Welcome to Proyecto Uno!</h2>
 
@@ -24,12 +24,20 @@
       <button type="submit">Submit</button>
     </form>
 
+    
     {% for resultado in resultados %}
-    <div style="padding: 10px;
-                background-color: #EEE;
-                margin: 20px">
-      <p style="font-size: 24px">{{ resultado | upper }}</p>
+    <h2><a id="resultados">Some Header</a></h2>
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Unary Operations</h4>
+      <hr>
+      <p>Display members of the set</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ resultado | upper }}</p>
+      </div>
     </div>
+    
+    
     {% endfor %}
     
 {% endblock %}

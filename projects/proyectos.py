@@ -23,7 +23,7 @@ def project_one():
         conjunto1 = request.form['conjunto1']
         conjunto2 = request.form['conjunto2']
                 
-        return redirect(url_for('project_one',conjunto1=conjunto1,conjunto2=conjunto2))
+        return redirect(url_for('project_one',conjunto1=conjunto1,conjunto2=conjunto2+"#resultados"))
     
     return render_template('project_one.html',resultados=resultados)
 
