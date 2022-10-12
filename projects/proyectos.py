@@ -23,11 +23,13 @@ def project_one():
         conjunto1 = request.form['conjunto1']
         conjunto2 = request.form['conjunto2']
                 
-        return redirect(url_for('project_one',conjunto1=conjunto1,conjunto2=conjunto2+"#resultados"))
+        return redirect(url_for('project_one',conjunto1=conjunto1,conjunto2=conjunto2))
     
     return render_template('project_one.html',resultados=resultados)
 
 #Pag relacionada al proyecto dos
-@app.route('/project_two')
+@app.route('/project_two', methods=['GET','POST'])
 def project_two():
-    return render_template('project_two.html')
+    resultados = []
+    
+    return render_template('project_two.html', resultados = resultados)

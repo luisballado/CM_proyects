@@ -4,7 +4,23 @@
     <h1>{% block title %} P1 &#128128; {% endblock %}</h1>
     <h1>Proyecto Uno</h1>
     <h2>Welcome to Proyecto Uno!</h2>
+    
+    <form method="post">
+      <div class="form-group">
+	<label for="conjunto1">Conjunto 1</label>
+	<input type="text" class="form-control" name="conjunto1" id="conjunto1" aria-describedby="conjunto1Help" placeholder="a,b,c or a b c" value="{{request.form['conjunto1']}}">
+	<small id="conjunto1Help" class="form-text text-muted">Ingresa los valores del conjunto. a,b,c or a b c</small>
+      </div>
+      <div class="form-group">
+	<label for="conjunto2">Conjunto 2</label>
+	<input type="text" class="form-control" name="conjunto2" id="conjunto2" aria-describedby="conjunto2Help" placeholder="a,b,c or a b c" value="{{request.form['conjunto2']}}">
+	<small id="conjunto1Help" class="form-text text-muted">Ingresa los valores del conjunto. a,b,c or a b c</small>
+      </div>
 
+      <button type="submit" class="btn btn-primary">Analizar</button>
+    </form>
+
+    <!--
     <form method="post">
       <label for="conjunto1">Conjunto 1</label>
       <br>
@@ -23,7 +39,7 @@
       <br>
       <button type="submit">Submit</button>
     </form>
-
+    -->
     
     {% for resultado in resultados %}
     <h2><a id="resultados">Some Header</a></h2>
