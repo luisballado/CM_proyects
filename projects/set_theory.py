@@ -3,34 +3,103 @@ Clase para manejar las operaciones de teoria de conjuntos
 @autor: Luis Ballado
 '''
 
-def _cardinality_(X):
-    count_X = 0
-    for i in X:
-        count_X = count_X + 1
-
-    return count_X
+import re
 
 class SetTheory():
 
     def __init__(self,A=None,B=None):
-       self.__author__ = "Luis Ballado"
-       self.__version__ = "1.0"
-       self.A = A
-       self.B = B
+        self.A = A
+        self.B = B
+        
+        #Convertir de un string a lista
+        if (A is not None and (type(A) == str or type(A) == int or type(A) == float)):
+            
+            split_sentence = []
+            tmp = ''
 
+            for s in self.A:
+                if bool(re.search(r',\s+|,|\s+,|\s',s)):
+                    if tmp != '':
+                        split_sentence.append(tmp)
+                        tmp = ''
+                else:
+                    tmp += s
+                    
+            if tmp:
+                split_sentence.append(tmp)
+
+            self.A = split_sentence
+
+        if (B is not None and (type(B) == str or type(B) == int or type(B) == float)):
+        
+            split_sentence = []
+            tmp = ''
+
+            for s in self.B:
+
+                if bool(re.search(r',\s+|,|\s+,|\s',s)):
+                    if tmp != '':
+                        split_sentence.append(tmp)
+                        tmp = ''
+                else:
+                    tmp += s
+                    
+            if tmp:
+                split_sentence.append(tmp)
+
+            self.B = split_sentence
+            
     #Regresar objeto de la lista recibida al iniciar
     def display(self):
-
+        
         result = {}
-
+        
         if self.B is not None:
             result['A'] = self.A
             result['B'] = self.B
-        else:
-            result['A'] = self.A 
-            
-        return result
 
+            AA = '{'
+            
+            for index, a in enumerate(self.A):
+                if index != len(self.A)-1:
+                    AA+= a+','
+                else:
+                    AA+= a
+                    
+            AA+='}'
+
+            result['AA'] = AA
+
+            BB = '{'
+            
+            for index, b in enumerate(self.B):
+                if index != len(self.B)-1:
+                    BB+= b+','
+                else:
+                    BB+= b
+                    
+            BB+='}'
+
+            result['BB'] = BB
+                        
+        else:
+
+            AA = '{'
+            
+            for index, a in enumerate(self.A):
+                if index != len(self.A)-1:
+                    AA+= a+','
+                else:
+                    AA+= a
+                    
+            AA+='}'
+
+            result['AA'] = AA
+            
+            result['A'] = self.A 
+                        
+        return result
+        
     def cardinality(self):
         #The cardinality of a set is its size.
         #For a finite set, the cardinality of a set is the number of members it contains
@@ -69,45 +138,93 @@ class SetTheory():
         #hacer un recorrido con cada elemento de A que aparezca en B
         #comparar la cardinanlidad de ambos para definir que son iguales
 
-        size_A = _cardinality_(self.A)
-        size_B = _cardinality_(self.B)
-
+        size_A = len(self.A)
+        size_B = len(self.B)
+                
         if size_A != size_B:
             return {'equals':False}
 
-        for i in self.A:
-            for j in self.B:
-                if self.A[i+j] == self.B[j]:
-                    print('equals')
-                    break
-                else:
-                    print('not equals')
-        
-        return None
+        equals_A = False
+        for x in self.A:
+            if x in self.B:
+                equals_A = True
+
+            if not equals_A:
+                break
+
+        equals_B = False
+        for x in self.B:
+            if x in self.A:
+                equals_B = True
+
+            if not equals_B:
+                break
+
+        if equals_A and equals_B:
+            return {'equals':True}
+        else:
+            return {'equals':False}
 
     def subset():
         return None
 
+    def intersection(self):
+        #The intersection of two sets S and T is the collection of all objects that are in both sets.
+        #if A and B are sets and A (intersection) B = Vacio then we say that A and B are disjoint, or disjoint sets.
+        result={}
+        value = []
+        for x in self.A:
+            if x in self.B:
+                value.append(x)
+
+        result['Intersection'] = value
+
+        if not value:
+            result['disjoint'] = True
+        else:
+            result['disjoint'] = False
+            
+        return result
+    
     def proper_subset():
         return None
 
-    def difference():
-        return None
+    def difference(self,AxB=True):
+        #De los elemento de uno quitar los elementos del otro
+        result = []
+        if AxB:
+            for a in self.A:
+                if a not in self.B:
+                    result.append(a)
+        else:
+            for b in self.B:
+                if b not in self.A:
+                    result.append(b)
+                    
+        return result
 
     def symmetric_diff():
         return None
 
-    def union():
+    def union(self):
         #The union of two sets A and B is the collection of all objects that are in either set. It is written A U T
         #Example S = {1,2,3}, T = {1,3,5} S U T = {1,2,3,5}
-        
-        return None
 
-    def intersection():
-        #The intersection of two sets S and T is the collection of all objects that are in both sets.
-        #if A and B are sets and A (intersection) B = Vacio then we say that A and B are disjoint, or disjoint sets.
-        return None
+        result = []
 
+        for a in self.A:
+            if a in self.B:
+                result.append(a)
+            else:
+                result.append(a)
+
+        for b in self.B:
+            if b not in result:
+                result.append(b)
+                        
+        return result
+
+    
     def cartesian_product():
         return None
        
