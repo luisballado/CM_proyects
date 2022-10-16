@@ -18,15 +18,15 @@ class SetTheory():
             tmp = ''
 
             for s in self.A:
-                if bool(re.search(r',\s+|,|\s+,|\s',s)):
+                if bool(re.search(r',\s+|,|-|_|;|\s+,|\s',s)):
                     if tmp != '':
-                        split_sentence.append(tmp)
+                        split_sentence.append(tmp.upper())
                         tmp = ''
                 else:
                     tmp += s
                     
             if tmp:
-                split_sentence.append(tmp)
+                split_sentence.append(tmp.upper())
 
             self.A = split_sentence
 
@@ -37,15 +37,15 @@ class SetTheory():
 
             for s in self.B:
 
-                if bool(re.search(r',\s+|,|\s+,|\s',s)):
+                if bool(re.search(r',\s+|,|-|_|;|\s+,|\s',s)):
                     if tmp != '':
-                        split_sentence.append(tmp)
+                        split_sentence.append(tmp.upper())
                         tmp = ''
                 else:
                     tmp += s
                     
             if tmp:
-                split_sentence.append(tmp)
+                split_sentence.append(tmp.upper())
 
             self.B = split_sentence
             
