@@ -43,9 +43,9 @@ def project_one():
                 
         respuesta['comparision'] = str(st.comparision()['equals'])
 
-        respuesta['difference'] = st.difference()
-        respuesta['union'] = st.union()
-        respuesta['intersection'] = st.intersection()
+        #respuesta['difference'] = st.difference()
+        #respuesta['union'] = st.union()
+        #respuesta['intersection'] = st.intersection()
         
         return redirect(url_for('project_one',resultados=respuesta))
     
