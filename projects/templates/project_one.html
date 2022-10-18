@@ -40,20 +40,52 @@
       <button type="submit">Submit</button>
     </form>
     -->
-    
-    {% for resultado in resultados %}
-    <h2><a id="resultados">Some Header</a></h2>
+
+    {% if resultados %}
+    <hr>
+    <hr>
+    <h2><a id="resultados">RESULTADOS</a></h2>
+
     <div class="alert alert-success" role="alert">
       <h4 class="alert-heading">Unary Operations</h4>
+      {% for resultado in resultados %}
       <hr>
-      <p>Display members of the set</p>
+      {% for key, value in resultado.display.items() %}
+      <p>CONJUNTO: {{key}}</p>
       <hr>
       <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ resultado | upper }}</p>
+	<p style="font-size: 24px">{{ value | upper }}</p>
       </div>
+      {% endfor %}
+      <hr>
+      {% for key, value in resultado.cardinality.items() %}
+      <p>CARDINALIDAD CONJUNTO: {{key}}</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value | upper }}</p>
+      </div>
+      {% endfor %}
+      {% endfor %}
     </div>
+
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">Binary Operations</h4>
+      {% for resultado in resultados %}
+      <p>{{resultado}}</p>
+      {% if resultado.comparision%}
+      <p>COMPARISION A=B?</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	{% if resultado.comparision == 'True' %}
+	<p style="color:Green;font-size: 24px">&#10003;</p>
+	{% else %}
+	<p style="color:Tomato;font-size: 24px">&#10007;</p>
+	{% endif %}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+
     
-    
-    {% endfor %}
-    
+    {% endif %}
 {% endblock %}

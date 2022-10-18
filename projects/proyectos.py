@@ -1,4 +1,8 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import jsonify
+import json
+
+from set_theory import *
 
 app = Flask(__name__)
 
@@ -12,18 +16,38 @@ def index():
 def project_one():
 
     resultados = []
-    conjunto1 = request.args.get('conjunto1')
-    conjunto2 = request.args.get('conjunto2')
-    
-    if conjunto1 is not None or conjunto2 is not None:
-        resultados.append(conjunto1)
-        resultados.append(conjunto2)
-            
-    if request.method == 'POST':
-        conjunto1 = request.form['conjunto1']
-        conjunto2 = request.form['conjunto2']
+
+    resultado = request.args.to_dict()
+        
+    if resultado:
+        r = resultado['resultados']
+        r_json = r.replace("'", "\"")
+
+        print(r_json)
+        
+        d = json.loads(r_json)
+        
+        resultados.append(d)
                 
-        return redirect(url_for('project_one',conjunto1=conjunto1,conjunto2=conjunto2))
+    if request.method == 'POST':
+
+        respuesta = {}
+        
+        set_A = request.form['conjunto1']
+        set_B = request.form['conjunto2']
+
+        st = SetTheory(set_A,set_B)
+
+        respuesta['display'] =  st.display()
+        respuesta['cardinality'] = st.cardinality()
+                
+        respuesta['comparision'] = str(st.comparision()['equals'])
+
+        respuesta['difference'] = st.difference()
+        respuesta['union'] = st.union()
+        respuesta['intersection'] = st.intersection()
+        
+        return redirect(url_for('project_one',resultados=respuesta))
     
     return render_template('project_one.html',resultados=resultados)
 

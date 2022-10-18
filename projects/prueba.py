@@ -1,7 +1,7 @@
 from set_theory import *
 
-A = ";2 x"
-B = "-3 d"
+A = "1,2,3,4"
+B = "0,5,6,7"
 
 st = SetTheory(A,B)
 

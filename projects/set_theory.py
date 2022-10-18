@@ -7,6 +7,7 @@ import re
 
 class SetTheory():
 
+    ## UNARY OPERATIONS ##
     def __init__(self,A=None,B=None):
         self.A = A
         self.B = B
@@ -55,8 +56,8 @@ class SetTheory():
         result = {}
         
         if self.B is not None:
-            result['A'] = self.A
-            result['B'] = self.B
+            #result['A'] = self.A
+            #result['B'] = self.B
 
             AA = '{'
             
@@ -68,7 +69,7 @@ class SetTheory():
                     
             AA+='}'
 
-            result['AA'] = AA
+            result['A'] = AA
 
             BB = '{'
             
@@ -80,7 +81,7 @@ class SetTheory():
                     
             BB+='}'
 
-            result['BB'] = BB
+            result['B'] = BB
                         
         else:
 
@@ -94,9 +95,9 @@ class SetTheory():
                     
             AA+='}'
 
-            result['AA'] = AA
+            result['A'] = AA
             
-            result['A'] = self.A 
+            #result['A'] = self.A 
                         
         return result
         
@@ -120,13 +121,14 @@ class SetTheory():
             result['B'] = count_B    
                 
         return result
-    
+
     def power_set():
         return None
 
     def possible_partitions():
         return None
 
+    ## Binary Operations ##
     def comparision(self):
         '''
         comparasion de dos conjuntos
@@ -165,9 +167,6 @@ class SetTheory():
         else:
             return {'equals':False}
 
-    def subset():
-        return None
-
     def intersection(self):
         #The intersection of two sets S and T is the collection of all objects that are in both sets.
         #if A and B are sets and A (intersection) B = Vacio then we say that A and B are disjoint, or disjoint sets.
@@ -185,9 +184,6 @@ class SetTheory():
             result['disjoint'] = False
             
         return result
-    
-    def proper_subset():
-        return None
 
     def difference(self,AxB=True):
         #De los elemento de uno quitar los elementos del otro
@@ -202,9 +198,6 @@ class SetTheory():
                     result.append(b)
                     
         return result
-
-    def symmetric_diff():
-        return None
 
     def union(self):
         #The union of two sets A and B is the collection of all objects that are in either set. It is written A U T
@@ -228,4 +221,14 @@ class SetTheory():
     def cartesian_product():
         return None
        
-       
+
+    
+
+    def subset():
+        return None
+
+    def proper_subset():
+        return None
+    
+    def symmetric_diff():
+        return None
