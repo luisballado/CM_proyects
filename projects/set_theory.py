@@ -5,6 +5,22 @@ Clase para manejar las operaciones de teoria de conjuntos
 
 import re
 
+#estilo bonito conjunto
+def set_style(_set_):
+
+    R = '{'
+    
+    for index, a in enumerate(_set_):
+        if index != len(_set_)-1:
+            R+= a+','
+        else:
+            R+= a
+            
+    R+='}'
+    
+    return R
+
+
 class SetTheory():
 
     ## UNARY OPERATIONS ##
@@ -54,50 +70,16 @@ class SetTheory():
     def display(self):
         
         result = {}
+
+        AA = set_style(self.A)
+        result['A'] = AA
         
         if self.B is not None:
-            #result['A'] = self.A
-            #result['B'] = self.B
-
-            AA = '{'
-            
-            for index, a in enumerate(self.A):
-                if index != len(self.A)-1:
-                    AA+= a+','
-                else:
-                    AA+= a
-                    
-            AA+='}'
-
-            result['A'] = AA
-
-            BB = '{'
-            
-            for index, b in enumerate(self.B):
-                if index != len(self.B)-1:
-                    BB+= b+','
-                else:
-                    BB+= b
-                    
-            BB+='}'
-
+                        
+            BB = set_style(self.B)
             result['B'] = BB
                         
-        else:
-
-            AA = '{'
-            
-            for index, a in enumerate(self.A):
-                if index != len(self.A)-1:
-                    AA+= a+','
-                else:
-                    AA+= a
-                    
-            AA+='}'
-
-            result['A'] = AA
-            
-            #result['A'] = self.A 
+        
                         
         return result
         
@@ -184,10 +166,11 @@ class SetTheory():
             result['disjoint'] = False
             
         return result
-
+        
     def difference(self,AxB=True):
         #De los elemento de uno quitar los elementos del otro
         result = []
+        
         if AxB:
             for a in self.A:
                 if a not in self.B:
@@ -196,8 +179,9 @@ class SetTheory():
             for b in self.B:
                 if b not in self.A:
                     result.append(b)
-                    
-        return result
+
+        
+        return set_style(result) #result
 
     def union(self):
         #The union of two sets A and B is the collection of all objects that are in either set. It is written A U T
@@ -215,7 +199,7 @@ class SetTheory():
             if b not in result:
                 result.append(b)
                         
-        return result
+        return set_style(result)
 
     
     def cartesian_product():

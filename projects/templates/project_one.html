@@ -42,6 +42,7 @@
     -->
 
     {% if resultados %}
+
     <hr>
     <hr>
     <h2><a id="resultados">RESULTADOS</a></h2>
@@ -83,9 +84,24 @@
 	{% endif %}
       </div>
       {% endif %}
+
+      {% if resultado.difference %}
+      <p>DIFFERENCE A-B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{resultado.difference}}</p>
+      </div>
+      {% endif %}
+
+      {% if resultado.union %}
+      <p>UNION AuB</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{resultado.union}}</p>
+      </div>
+      {% endif %}
+      
       {% endfor %}
     </div>
-
-    
     {% endif %}
 {% endblock %}

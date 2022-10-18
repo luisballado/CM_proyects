@@ -40,12 +40,12 @@ def project_one():
 
         respuesta['display'] =  st.display()
         respuesta['cardinality'] = st.cardinality()
-                
         respuesta['comparision'] = str(st.comparision()['equals'])
 
-        #respuesta['difference'] = st.difference()
-        #respuesta['union'] = st.union()
-        #respuesta['intersection'] = st.intersection()
+        respuesta['difference'] = st.difference()
+        respuesta['union'] = st.union()
+        print(st.intersection()['Intersection'])
+        respuesta['intersection'] = str(st.intersection()['Intersection'])
         
         return redirect(url_for('project_one',resultados=respuesta))
     
