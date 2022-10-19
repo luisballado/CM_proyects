@@ -1,0 +1,43 @@
+{
+   "unary_op": [
+      {
+         "type_op": "display",
+         "A": "{A,C,V}",
+         "B": "{C,V,F}"
+      },
+      {
+         "type_op": "cardinality",
+         "operation": {
+            "A": 3,
+            "B": 3
+         }
+      },
+      {
+         "type_op": "power_set",
+         "operation": {}
+      },
+      {
+         "type_op": "all_posible_partitions",
+         "operation": {}
+      }
+   ],
+   "binary_op": [
+      {
+         "type_op": "comparision",
+         "operation": "False"
+      },
+      {
+         "type_op": "difference",
+         "operation": "{A}"
+      },
+      {
+         "type_op": "union",
+         "operation": "{A,C,V,F}"
+      },
+      {
+         "type_op": "intersection",
+         "operation": "{C,V}",
+         "disjoint": "False"
+      }
+   ]
+}

@@ -40,44 +40,98 @@
       <button type="submit">Submit</button>
     </form>
     -->
-
+    
     {% if resultados %}
 
     <hr>
     <hr>
     <h2><a id="resultados">RESULTADOS</a></h2>
-
+    
     <div class="alert alert-success" role="alert">
       <h4 class="alert-heading">Unary Operations</h4>
       {% for resultado in resultados %}
       <hr>
-      {% for key, value in resultado.display.items() %}
-      <p>CONJUNTO: {{key}}</p>
+      {% for value in resultado.unary_op %}
+
+      <!-- Display all sets -->
+      {% if value.type_op == 'display' %}
+      
+      <p>Conjunto A</p>
       <hr>
       <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value | upper }}</p>
+	<p style="font-size: 24px">{{ value.A | upper }}</p>
       </div>
-      {% endfor %}
-      <hr>
-      {% for key, value in resultado.cardinality.items() %}
-      <p>CARDINALIDAD CONJUNTO: {{key}}</p>
+
+      <p>Conjunto B</p>
       <hr>
       <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value | upper }}</p>
+	<p style="font-size: 24px">{{ value.B | upper }}</p>
       </div>
-      {% endfor %}
+
+      {% endif %}
+
+      <!-- Cardinality of given sets -->
+      {% if value.type_op == 'cardinality' %}
+
+      <p>Cardinalidad A</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.A | upper }}</p>
+      </div>
+
+      <p>Cardinalidad B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.B | upper }}</p>
+      </div>
+      
+      {% endif %}
+
+      <!-- PowerSets of given sets -->
+      {% if value.type_op == 'power_set' %}
+
+      <p>PowerSet A</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.A | upper }}</p>
+      </div>
+
+      <p>PowerSet B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.B | upper }}</p>
+      </div>
+      
+      {% endif %}
+
+      <!-- All posible partitions of given sets -->
+      {% if value.type_op == 'all_posible_partitions' %}
+
+      <p>All Posible Partitions A</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.A | upper }}</p>
+      </div>
+
+      <p>All Posible Partitions B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.B | upper }}</p>
+      </div>
+      
+      {% endif %}
       {% endfor %}
     </div>
-
+    
+    <!-- Binary Operations -->
     <div class="alert alert-info" role="alert">
       <h4 class="alert-heading">Binary Operations</h4>
-      {% for resultado in resultados %}
-      <p>{{resultado}}</p>
-      {% if resultado.comparision%}
+      {% for value in resultado.binary_op %}
+      {% if value.type_op == 'comparision' %}
       <p>COMPARISION A=B?</p>
       <hr>
       <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	{% if resultado.comparision == 'True' %}
+	{% if value.operation == 'True' %}
 	<p style="color:Green;font-size: 24px">&#10003;</p>
 	{% else %}
 	<p style="color:Tomato;font-size: 24px">&#10007;</p>
@@ -85,23 +139,93 @@
       </div>
       {% endif %}
 
-      {% if resultado.difference %}
-      <p>DIFFERENCE A-B</p>
+      {% if value.type_op == 'subset' %}
+      <p>SUBSET A&sube;B</p>
       <hr>
       <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{resultado.difference}}</p>
+	<p style="font-size: 24px">{{ value.operation.AB }}</p>
+      </div>
+      <p>SUBSET B&sube;A</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.BA }}</p>
       </div>
       {% endif %}
 
-      {% if resultado.union %}
-      <p>UNION AuB</p>
+      {% if value.type_op == 'proper_subset' %}
+      <p>PROPER SET A&sub;B</p>
       <hr>
       <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{resultado.union}}</p>
+	<p style="font-size: 24px">{{ value.operation.AB }}</p>
+      </div>
+      <p>PROPER SET B&sub;A</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{ value.operation.BA }}</p>
+      </div>
+      {% endif %}
+      
+      {% if value.type_op == 'difference' %}
+      <p>DIFFERENCE A-B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{value.operation}}</p>
+      </div>
+      {% endif %}
+
+      {% if value.type_op == 'symmetric_diff' %}
+      <p>SYMMETRIC DIFF A&oplus;B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{value.operation.AB}}</p>
+      </div>
+      <p>SYMMETRIC DIFF B&oplus;A</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{value.operation.BA}}</p>
+      </div>
+      {% endif %}
+      
+      {% if value.type_op == 'union' %}
+      <p>UNION A&cup;B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{value.operation}}</p>
+      </div>
+      {% endif %}
+      
+      {% if value.type_op == 'intersection' %}
+      <p>Interseccion A&cap;B</p>
+      
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{value.operation}}</p>
+	{% if value.disjoint == 'True' %}
+	<p style="font-size: 24px">¿Disjoint? </p><a style="color:Green;font-size: 24px">&#10003;</a>
+	{% else %}
+	<p style="font-size: 24px">¿Disjoint? </p><a style="color:Tomato;font-size: 24px">&#10007;</a>
+	{% endif %}
+      </div>
+      {% endif %}
+
+      {% if value.type_op == 'cartesian_product' %}
+      <p>CARTESIAN PRODUCT A&sdot;B</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{value.operation.AB}}</p>
+      </div>
+      <p>CARTESIAN PRODUCT B&sdot;A</p>
+      <hr>
+      <div style="padding: 10px; background-color: #EEE; margin: 20px">
+	<p style="font-size: 24px">{{value.operation.BA}}</p>
       </div>
       {% endif %}
       
       {% endfor %}
     </div>
+    
+    
+    {% endfor %}
     {% endif %}
+    
 {% endblock %}

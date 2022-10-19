@@ -158,7 +158,7 @@ class SetTheory():
             if x in self.B:
                 value.append(x)
 
-        result['Intersection'] = value
+        result['Intersection'] = set_style(value)
 
         if not value:
             result['disjoint'] = True
