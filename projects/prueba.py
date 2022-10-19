@@ -1,10 +1,10 @@
 from set_theory import *
 
-A = "1,2,3,4"
+A = ["1","2","3","4"]
 B = "0,5,6,7"
 
 st = SetTheory(A,B)
-
+'''
 print('###DISPLAY###')
 print(st.display())
 print('###CARDINALITY###')
@@ -19,3 +19,6 @@ print('###DIFFERENCE B-A###')
 print(st.difference(False))
 print('###UNION###')
 print(st.union())
+'''
+print('###POWER SET###')
+print(st.power_set(A,4))

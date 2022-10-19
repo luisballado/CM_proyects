@@ -4,6 +4,7 @@ Clase para manejar las operaciones de teoria de conjuntos
 '''
 
 import re
+import math
 
 #estilo bonito conjunto
 def set_style(_set_):
@@ -104,7 +105,22 @@ class SetTheory():
                 
         return result
 
-    def power_set():
+    def power_set(self,set,set_size):
+
+        pow_set_size = (int) (math.pow(2, set_size))
+             
+        # Run from counter 000..0 to 111..1
+        for i in range(0, pow_set_size):
+            print("{")
+            for j in range(0, set_size):
+             
+                # Check if jth bit in the
+                # counter is set If set then
+                # print jth element from set
+                if((i & (1 << j)) > 0):
+                    print(set[j], end = "")
+            print("}")
+        
         return None
 
     def possible_partitions():
