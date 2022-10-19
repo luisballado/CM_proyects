@@ -79,9 +79,7 @@ class SetTheory():
                         
             BB = set_style(self.B)
             result['B'] = BB
-                        
-        
-                        
+            
         return result
         
     def cardinality(self):
@@ -105,25 +103,31 @@ class SetTheory():
                 
         return result
 
-    def power_set(self,set,set_size):
 
-        pow_set_size = (int) (math.pow(2, set_size))
-             
-        # Run from counter 000..0 to 111..1
-        for i in range(0, pow_set_size):
-            print("{")
-            for j in range(0, set_size):
-             
-                # Check if jth bit in the
-                # counter is set If set then
-                # print jth element from set
-                if((i & (1 << j)) > 0):
-                    print(set[j], end = "")
-            print("}")
+    def power_set(self,C):
+        '''
+        Es el set que contiene todos los subsets de un set y tendra los elementos de 2^|cardinalidad del set|
+        '''
+        A = []
+        if len(C) == 0:
+            return [[]]
+        else:
+            smaller_set = self.power_set(C[:-1])
+            last_item = C[-1]
+            subsets = []
+            
+            for item in smaller_set:
+                subsets.append(item + [last_item])
+                A.append(set_style(item+[last_item]))
+                print(A)
+
+            result = smaller_set + subsets
+            
+            return result
         
-        return None
-
-    def possible_partitions():
+    def possible_partitions(self):
+        '''
+        '''
         return None
 
     ## Binary Operations ##
@@ -166,8 +170,10 @@ class SetTheory():
             return {'equals':False}
 
     def intersection(self):
-        #The intersection of two sets S and T is the collection of all objects that are in both sets.
-        #if A and B are sets and A (intersection) B = Vacio then we say that A and B are disjoint, or disjoint sets.
+        '''
+        The intersection of two sets S and T is the collection of all objects that are in both sets.
+        if A and B are sets and A (intersection) B = Vacio then we say that A and B are disjoint, or disjoint sets.
+        '''
         result={}
         value = []
         for x in self.A:
@@ -184,7 +190,10 @@ class SetTheory():
         return result
         
     def difference(self,AxB=True):
-        #De los elemento de uno quitar los elementos del otro
+        '''
+        Is the set of all elements that are in A and not B
+        Two sets are called disjoint if, and only if, they have no elements in common.
+        '''
         result = []
         
         if AxB:
@@ -197,12 +206,13 @@ class SetTheory():
                     result.append(b)
 
         
-        return set_style(result) #result
+        return set_style(result)
 
     def union(self):
-        #The union of two sets A and B is the collection of all objects that are in either set. It is written A U T
-        #Example S = {1,2,3}, T = {1,3,5} S U T = {1,2,3,5}
-
+        '''
+        The union of two sets A and B is the collection of all objects that are in either set. It is written A U T
+        Example S = {1,2,3}, T = {1,3,5} S U T = {1,2,3,5}
+        '''
         result = []
 
         for a in self.A:
@@ -218,17 +228,35 @@ class SetTheory():
         return set_style(result)
 
     
-    def cartesian_product():
+    def cartesian_product(self):
+        '''
+        
+        '''
         return None
        
 
     
 
-    def subset():
+    def subset(self):
+        '''
+        Check whether one set is a subset of other.
+        Order the elements of both sets and successively compare each elemnt of the first set
+        with each element of the second set.
+        If some element of the first set is not found to equal any element of the second, then
+        the first set is not a subset of the second.
+        But if each element of the first set is found to equal an element of the second set, then
+        the first set is a subset of the second.
+        '''
+                
         return None
 
-    def proper_subset():
+    def proper_subset(self):
+        """
+        If C,D are sets from a universe U, we say thar C is a subset of D and write C (subset) D, or D (subset) C, if every element of C is an element of D. If in addition, D contains an element that is not in C, then C is called a proper subset of D, and
+        """
         return None
     
-    def symmetric_diff():
+    def symmetric_diff(self):
+        '''
+        '''
         return None

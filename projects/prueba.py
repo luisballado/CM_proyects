@@ -1,12 +1,13 @@
 from set_theory import *
 
-A = ["1","2","3","4"]
+A = "1,2,3,4"
 B = "0,5,6,7"
 
 st = SetTheory(A,B)
-'''
+
 print('###DISPLAY###')
 print(st.display())
+'''
 print('###CARDINALITY###')
 print(st.cardinality())
 print('###COMPARISION###')
@@ -20,5 +21,13 @@ print(st.difference(False))
 print('###UNION###')
 print(st.union())
 '''
-print('###POWER SET###')
-print(st.power_set(A,4))
+A = st.A
+B = st.B
+
+print('###POWER SET A###')
+print(st.power_set(A))
+
+print('###POWER SET B###')
+print(st.power_set(B))
+
+
