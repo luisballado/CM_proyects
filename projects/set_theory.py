@@ -30,40 +30,47 @@ class SetTheory():
         self.B = B
         
         #Convertir de un string a lista
-        if (A is not None and (type(A) == str or type(A) == int or type(A) == float)):
+        if (A is not None and (type(A) == str or type(A) == int)):
             
             split_sentence = []
             tmp = ''
 
             for s in self.A:
-                if bool(re.search(r',\s+|,|-|_|;|\s+,|\s',s)):
+                if bool(re.search(r'\.|,\s+|,|-|_|;|\s+,|\s',s)):
                     if tmp != '':
-                        split_sentence.append(tmp.upper())
+                        #omitir si ya se encuentra en la lista
+                        if tmp not in split_sentence:
+                            split_sentence.append(tmp)
                         tmp = ''
                 else:
-                    tmp += s
+                    tmp += s.upper()
                     
             if tmp:
-                split_sentence.append(tmp.upper())
+                #omitir si ya se encuentra en la lista
+                if tmp not in split_sentence:
+                    split_sentence.append(tmp)
 
             self.A = split_sentence
-
-        if (B is not None and (type(B) == str or type(B) == int or type(B) == float)):
+            
+        if (B is not None and (type(B) == str or type(B) == int)):
         
             split_sentence = []
             tmp = ''
 
             for s in self.B:
-
-                if bool(re.search(r',\s+|,|-|_|;|\s+,|\s',s)):
+                if bool(re.search(r'\.|,\s+|,|-|_|;|\s+,|\s',s)):
                     if tmp != '':
-                        split_sentence.append(tmp.upper())
+                        #omitir si ya se encuentra en la lista
+                        if tmp not in split_sentence:
+                            split_sentence.append(tmp)
                         tmp = ''
                 else:
-                    tmp += s
+                    tmp += s.upper()
                     
             if tmp:
-                split_sentence.append(tmp.upper())
+                #omitir si ya se encuentra en la lista
+                if tmp not in split_sentence:
+                    split_sentence.append(tmp)
 
             self.B = split_sentence
             
@@ -71,13 +78,15 @@ class SetTheory():
     def display(self):
         
         result = {}
-
+        
         AA = set_style(self.A)
-        result['A'] = AA
+        #AA = set(self.A)
+        result['A'] = str(AA)
         
         if self.B is not None:
                         
             BB = set_style(self.B)
+            #BB = str(set(self.B))
             result['B'] = BB
             
         return result
@@ -106,28 +115,37 @@ class SetTheory():
 
     def power_set(self,C):
         '''
-        Es el set que contiene todos los subsets de un set y tendra los elementos de 2^|cardinalidad del set|
+        Es el set que contiene todos los subsets de un set
+        y tendra los elementos de 2^|cardinalidad del set|
         '''
         A = []
         if len(C) == 0:
             return [[]]
         else:
-            smaller_set = self.power_set(C[:-1])
-            last_item = C[-1]
+            smaller_set = self.power_set(C[:-1]) #quitarle el ultimo a la lista
+            last_item = C[-1] #obtener el ultimo elemento de la lista
             subsets = []
             
             for item in smaller_set:
                 subsets.append(item + [last_item])
                 A.append(set_style(item+[last_item]))
                 print(A)
+                
 
             result = smaller_set + subsets
             
             return result
         
-    def possible_partitions(self):
-        '''
-        '''
+    def possible_partitions(self, current=[],final=[]):
+        if len(lst) == 0:
+            if len(current) == 0:
+                print (final)
+            elif len(current) > 1:
+                print ([current] + final)
+        else:
+            part(lst[1:], current + [lst[0]], final[:])
+            part(lst[1:], current[:], final + [[lst[0]]])
+        
         return None
 
     ## Binary Operations ##

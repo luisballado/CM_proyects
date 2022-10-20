@@ -56,7 +56,7 @@ def project_one():
 
         tmp = {}
         tmp['type_op'] = 'power_set'
-        tmp['operation'] = {'A':'{}','B':'{}'}
+        tmp['operation'] = {'A':st.power_set(st.A),'B':st.power_set(st.B)}
         respuesta_arr.append(tmp)
 
         tmp = {}
@@ -113,7 +113,8 @@ def project_one():
                 
         print(respuesta)
         
-        return redirect(url_for('project_one',resultados=respuesta))
+        #redirect(url_for('project_one',resultados=respuesta))
+        return jsonify(respuesta) 
     
     return render_template('project_one.html',resultados=resultados)
 
