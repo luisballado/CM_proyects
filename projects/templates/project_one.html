@@ -1,231 +1,202 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <h1>{% block title %} P1 &#128128; {% endblock %}</h1>
-    <h1>Proyecto Uno</h1>
-    <h2>Welcome to Proyecto Uno!</h2>
-    
-    <form method="post">
-      <div class="form-group">
-	<label for="conjunto1">Conjunto 1</label>
-	<input type="text" class="form-control" name="conjunto1" id="conjunto1" aria-describedby="conjunto1Help" placeholder="a,b,c or a b c" value="{{request.form['conjunto1']}}">
-	<small id="conjunto1Help" class="form-text text-muted">Ingresa los valores del conjunto. a,b,c or a b c</small>
-      </div>
-      <div class="form-group">
-	<label for="conjunto2">Conjunto 2</label>
-	<input type="text" class="form-control" name="conjunto2" id="conjunto2" aria-describedby="conjunto2Help" placeholder="a,b,c or a b c" value="{{request.form['conjunto2']}}">
-	<small id="conjunto1Help" class="form-text text-muted">Ingresa los valores del conjunto. a,b,c or a b c</small>
-      </div>
 
-      <button type="submit" class="btn btn-primary">Analizar</button>
-    </form>
+<div style="padding-top:10%;padding-left:10%;">
+  <h1>{% block title %} P1 &#128128; {% endblock %}</h1>
+  <h1>Proyecto 1: Sets</h1>
+  <h2></h2>
+</div>
 
-    <!--
-    <form method="post">
-      <label for="conjunto1">Conjunto 1</label>
-      <br>
-      <input type="text" name="conjunto1"
-             placeholder="Conjunto 1"
-             value="{{ request.form['conjunto1'] }}"></input>
-      <br>
-      
-      <label for="conjunto2">Conjunto 2</label>
-      <br>
-      <textarea name="conjunto2"
-                placeholder="Conjunto 2"
-                rows="15"
-                cols="60"
-                >{{ request.form['conjunto2'] }}</textarea>
-      <br>
-      <button type="submit">Submit</button>
-    </form>
-    -->
-    
-    {% if resultados %}
+<div style="padding-right:35%;padding-left:10%;padding-bottom:1%;">
+  <div class="form-group">
+    <label for="conjunto1">Conjunto 1</label>
+    <input type="text" class="form-control" name="conjunto1" id="conjunto1" aria-describedby="conjunto1Help" placeholder="a,b,c or a b c" id="conjunto1">
+    <small id="conjunto1Help" class="form-text text-muted">Ingresa los valores del conjunto. a,b,c ó a b c ó a;b;c ó a.b.c ó a-b-c ó a_b_c</small>
+  </div>
+  <div class="form-group">
+    <label for="conjunto2">Conjunto 2</label>
+    <input type="text" class="form-control" name="conjunto2" id="conjunto2" aria-describedby="conjunto2Help" placeholder="a,b,c or a b c" id="conjunto2">
+    <small id="conjunto1Help" class="form-text text-muted">Ingresa los valores del conjunto. a,b,c ó a b c ó a;b;c ó a.b.c ó a-b-c ó a_b_c</small>
+  </div>
+  
+  <input onclick="calculateSets();" type="submit" class="btn btn-primary">
 
+</div>
+
+<br><br>
+<div id="set-results">
+  <h2> Resultados </h2>
+
+  <span id="display"></span>
+  <span id="num-rows"></span>
+
+  <div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Unary Operations</h4>
     <hr>
+    <p>Conjunto A</p>
     <hr>
-    <h2><a id="resultados">RESULTADOS</a></h2>
-    
-    <div class="alert alert-success" role="alert">
-      <h4 class="alert-heading">Unary Operations</h4>
-      {% for resultado in resultados %}
-      <hr>
-      {% for value in resultado.unary_op %}
-
-      <!-- Display all sets -->
-      {% if value.type_op == 'display' %}
-      
-      <p>Conjunto A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.A | upper }}</p>
-      </div>
-
-      <p>Conjunto B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.B | upper }}</p>
-      </div>
-
-      {% endif %}
-
-      <!-- Cardinality of given sets -->
-      {% if value.type_op == 'cardinality' %}
-
-      <p>Cardinalidad A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.A | upper }}</p>
-      </div>
-
-      <p>Cardinalidad B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.B | upper }}</p>
-      </div>
-      
-      {% endif %}
-
-      <!-- PowerSets of given sets -->
-      {% if value.type_op == 'power_set' %}
-
-      <p>PowerSet A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.A | upper }}</p>
-      </div>
-
-      <p>PowerSet B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.B | upper }}</p>
-      </div>
-      
-      {% endif %}
-
-      <!-- All posible partitions of given sets -->
-      {% if value.type_op == 'all_posible_partitions' %}
-
-      <p>All Posible Partitions A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.A | upper }}</p>
-      </div>
-
-      <p>All Posible Partitions B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.B | upper }}</p>
-      </div>
-      
-      {% endif %}
-      {% endfor %}
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="display_conjuntoA"></span></p>
     </div>
     
-    <!-- Binary Operations -->
-    <div class="alert alert-info" role="alert">
-      <h4 class="alert-heading">Binary Operations</h4>
-      {% for value in resultado.binary_op %}
-      {% if value.type_op == 'comparision' %}
-      <p>COMPARISION A=B?</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	{% if value.operation == 'True' %}
-	<p style="color:Green;font-size: 24px">&#10003;</p>
-	{% else %}
-	<p style="color:Tomato;font-size: 24px">&#10007;</p>
-	{% endif %}
-      </div>
-      {% endif %}
-
-      {% if value.type_op == 'subset' %}
-      <p>SUBSET A&sube;B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.AB }}</p>
-      </div>
-      <p>SUBSET B&sube;A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.BA }}</p>
-      </div>
-      {% endif %}
-
-      {% if value.type_op == 'proper_subset' %}
-      <p>PROPER SET A&sub;B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.AB }}</p>
-      </div>
-      <p>PROPER SET B&sub;A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{ value.operation.BA }}</p>
-      </div>
-      {% endif %}
-      
-      {% if value.type_op == 'difference' %}
-      <p>DIFFERENCE A-B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{value.operation}}</p>
-      </div>
-      {% endif %}
-
-      {% if value.type_op == 'symmetric_diff' %}
-      <p>SYMMETRIC DIFF A&oplus;B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{value.operation.AB}}</p>
-      </div>
-      <p>SYMMETRIC DIFF B&oplus;A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{value.operation.BA}}</p>
-      </div>
-      {% endif %}
-      
-      {% if value.type_op == 'union' %}
-      <p>UNION A&cup;B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{value.operation}}</p>
-      </div>
-      {% endif %}
-      
-      {% if value.type_op == 'intersection' %}
-      <p>Interseccion A&cap;B</p>
-      
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{value.operation}}</p>
-	{% if value.disjoint == 'True' %}
-	<p style="font-size: 24px">¿Disjoint? </p><a style="color:Green;font-size: 24px">&#10003;</a>
-	{% else %}
-	<p style="font-size: 24px">¿Disjoint? </p><a style="color:Tomato;font-size: 24px">&#10007;</a>
-	{% endif %}
-      </div>
-      {% endif %}
-
-      {% if value.type_op == 'cartesian_product' %}
-      <p>CARTESIAN PRODUCT A&sdot;B</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{value.operation.AB}}</p>
-      </div>
-      <p>CARTESIAN PRODUCT B&sdot;A</p>
-      <hr>
-      <div style="padding: 10px; background-color: #EEE; margin: 20px">
-	<p style="font-size: 24px">{{value.operation.BA}}</p>
-      </div>
-      {% endif %}
-      
-      {% endfor %}
+    <p>Conjunto B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="display_conjuntoB"></span></p>
+    </div>
+        
+    <p>Cardinalidad A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="cardinalidad_A"></span></p>
     </div>
     
+    <p>Cardinalidad B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="cardinalidad_B"></span></p>
+    </div>
     
-    {% endfor %}
-    {% endif %}
+    <!-- PowerSets of given sets -->
+    <p>PowerSet A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="power_A"></span></p>
+    </div>
     
+    <p>PowerSet B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="power_B"></span></p>
+    </div>
+        
+    <!-- All posible partitions of given sets -->
+    <p>All Posible Partitions A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="partitions_A"></span></p>
+    </div>
+    
+    <p>All Posible Partitions B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px"><span id="partitions_B"></span></p>
+    </div>
+  </div>
+
+  <!-- Binary Operations -->
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">Binary Operations</h4>
+    
+    <p>COMPARISION A=B?</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <span id="comparision_AB"></span>
+    </div>
+    
+    <p>SUBSET A&sube;B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="subset_AB"></span>
+      </p>
+    </div>
+
+    <p>SUBSET B&sube;A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="subset_BA"></span>
+      </p>
+    </div>
+
+    <p>PROPER SET A&sub;B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="proper_subset_AB"></span>
+      </p>
+    </div>
+    <p>PROPER SET B&sub;A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="proper_subset_BA"></span>
+      </p>
+    </div>
+    
+    <p>DIFFERENCE A-B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="difference_AB"></span>
+      </p>
+    </div>
+
+    <p>DIFFERENCE B-A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="difference_BA"></span>
+      </p>
+    </div>
+        
+    <p>SYMMETRIC DIFF A&#8854;B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="symmetric_diff_AB"></span>
+      </p>
+    </div>
+    
+    <p>SYMMETRIC DIFF B&#8854;A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="symmetric_diff_BA"></span>
+      </p>
+    </div>
+
+    <p>UNION A&cup;B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="union_AB"></span>
+      </p>
+    </div>
+    
+    <p>Interseccion A&cap;B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="interseccion_AB"></span>
+      </p>
+      <!-- True -->
+      <p style="font-size: 24px">¿Disjoint?
+	<span id="interseccion_disjoint"></span>
+      </p>
+      
+      <!--<a style="color:Green;font-size: 24px">&#10003;</a>
+	  <a style="color:Tomato;font-size: 24px">&#10007;</a>
+      -->
+    </div>
+    
+    <p>CARTESIAN PRODUCT A&sdot;B</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="cartesian_product_AB"></span>
+      </p>
+    </div>
+    <p>CARTESIAN PRODUCT B&sdot;A</p>
+    <hr>
+    <div style="padding: 10px; background-color: #EEE; margin: 20px">
+      <p style="font-size: 24px">
+	<span id="cartesian_product_BA"></span>
+      </p>
+    </div>
+  </div>
+
+</div>
+  
 {% endblock %}

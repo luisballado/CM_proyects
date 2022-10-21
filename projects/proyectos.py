@@ -11,6 +11,92 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+#Hacer todos los calculos en nueva ruta
+@app.route('/calc_sets', methods=['POST'])
+def calc_sets():
+
+    #obtener valores ingresados
+    set_A = request.json['conjunto1']
+    set_B = request.json['conjunto2']
+    
+    respuesta = {}
+    respuesta_arr = []
+    
+    st = SetTheory(set_A,set_B)
+    
+    #--- hacer respuesta ---
+    tmp = {}
+    tmp['type_op'] = 'display'
+    tmp['A'] = st.display()['A']
+    tmp['B'] = st.display()['B']
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'cardinality'
+    tmp['operation'] = st.cardinality()
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'power_set'
+    tmp['operation'] = {'A':st.power_set(st.A),'B':st.power_set(st.B)}
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'all_posible_partitions'
+    tmp['operation'] = {'A':'{}','B':'{}'}
+    respuesta_arr.append(tmp)
+    
+    respuesta['unary_op'] = respuesta_arr 
+    
+    respuesta_arr = []
+    
+    tmp = {}
+    tmp['type_op'] = 'comparision'
+    tmp['operation'] = str(st.comparision()['equals'])
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'subset'
+    tmp['operation'] = {'AB':'{}','BA':'{}'}
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'proper_subset'
+    tmp['operation'] = {'AB':'{XXX}','BA':'{XXX}'}
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'difference'
+    tmp['operation'] = {'AB':str(st.difference()),'BA':str(st.difference(False))}
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'symmetric_diff'
+    tmp['operation'] = {'AB':'{}','BA':'{}'}
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'union'
+    tmp['operation'] = st.union()
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'intersection'
+    tmp['operation'] = str(st.intersection()['Intersection'])
+    tmp['disjoint'] = str(st.intersection()['disjoint'])
+    respuesta_arr.append(tmp)
+    
+    tmp = {}
+    tmp['type_op'] = 'cartesian_product'
+    tmp['operation'] = {'AB':'{}','BA':'{}'}
+    respuesta_arr.append(tmp)
+    
+    respuesta['binary_op'] = respuesta_arr 
+    
+    #print(respuesta)
+    
+    return jsonify(respuesta)
+    
 #Pag relacionada al proyecto uno
 @app.route('/project_one', methods=['GET', 'POST'])
 def project_one():
@@ -113,8 +199,8 @@ def project_one():
                 
         print(respuesta)
         
-        #redirect(url_for('project_one',resultados=respuesta))
-        return jsonify(respuesta) 
+        return redirect(url_for('project_one',resultados=respuesta))
+        #return jsonify(respuesta) 
     
     return render_template('project_one.html',resultados=resultados)
 

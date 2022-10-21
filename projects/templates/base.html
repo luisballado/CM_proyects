@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %} - CM</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💀</text></svg>">
+    <link rel="stylesheet" href="{{url_for('static',filename='estilos.css')}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <style>
-        nav a {
-            color: #d64161;
-            font-size: 2em;
-            margin-left: 30px;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{url_for('static',filename='set-calc.js')}}"></script>
+  </head>
+  <body>
     <nav>
-        <a href="{{ url_for('index') }}">Computational Mathematics</a>
-        <a href="{{ url_for('project_one') }}">Project 1</a>
-	<a href="{{ url_for('project_two') }}">Project 2</a>
+      <a href="{{ url_for('index') }}">Computational Mathematics</a>
+      <a href="{{ url_for('project_one') }}">Project 1</a>
+      <a href="{{ url_for('project_two') }}">Project 2</a>
     </nav>
     <hr>
     <div class="content">
-        {% block content %} {% endblock %}
+      {% block content %} {% endblock %}
     </div>
-</body>
+  </body>
 </html>
