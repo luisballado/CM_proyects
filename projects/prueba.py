@@ -1,7 +1,7 @@
 from set_theory import *
 
-A = "Math.is. fun fun fun work work"
-B = "Express the argument in argument form. Determine if the argument is valid"
+A = "2,3"
+B = "5,6,7"
 
 st = SetTheory(A,B)
 
@@ -45,4 +45,6 @@ B = st.B
 #print('###POWER SET B###')
 #print(st.power_set(B))
 
-print(part(['math','is','fun']))
+#print(part(['math','is','fun']))
+
+print(st.cartesian_product())

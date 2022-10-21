@@ -57,12 +57,12 @@ def calc_sets():
     
     tmp = {}
     tmp['type_op'] = 'subset'
-    tmp['operation'] = {'AB':'{}','BA':'{}'}
+    tmp['operation'] = {'AB':st.subset(True),'BA':st.subset(False)}
     respuesta_arr.append(tmp)
     
     tmp = {}
     tmp['type_op'] = 'proper_subset'
-    tmp['operation'] = {'AB':'{XXX}','BA':'{XXX}'}
+    tmp['operation'] = {'AB':st.proper_subset(True),'BA':st.proper_subset(False)}
     respuesta_arr.append(tmp)
     
     tmp = {}
@@ -72,7 +72,7 @@ def calc_sets():
     
     tmp = {}
     tmp['type_op'] = 'symmetric_diff'
-    tmp['operation'] = {'AB':'{}','BA':'{}'}
+    tmp['operation'] = {'AB':str(st.symmetric_diff(True)),'BA':str(st.symmetric_diff(False))}
     respuesta_arr.append(tmp)
     
     tmp = {}
@@ -88,7 +88,7 @@ def calc_sets():
     
     tmp = {}
     tmp['type_op'] = 'cartesian_product'
-    tmp['operation'] = {'AB':'{}','BA':'{}'}
+    tmp['operation'] = {'AB':str(st.cartesian_product(True)),'BA':str(st.cartesian_product(False))}
     respuesta_arr.append(tmp)
     
     respuesta['binary_op'] = respuesta_arr 

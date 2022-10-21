@@ -122,21 +122,26 @@ class SetTheory():
         if len(C) == 0:
             return [[]]
         else:
-            smaller_set = self.power_set(C[:-1]) #quitarle el ultimo a la lista
-            last_item = C[-1] #obtener el ultimo elemento de la lista
+            peque_set = self.power_set(C[:-1]) #quitarle el ultimo a la lista
+            ult_item = C[-1] #obtener el ultimo elemento de la lista
             subsets = []
             
-            for item in smaller_set:
-                subsets.append(item + [last_item])
-                A.append(set_style(item+[last_item]))
+            for item in peque_set:
+                subsets.append(item + [ult_item])
+                A.append(set_style(item+[ult_item]))
                 print(A)
                 
 
-            result = smaller_set + subsets
+            result = peque_set + subsets
             
             return result
         
     def possible_partitions(self, current=[],final=[]):
+        '''
+        Posibles particiones de un conjunto
+        '''
+
+        #caso base
         if len(lst) == 0:
             if len(current) == 0:
                 print (final)
@@ -237,44 +242,140 @@ class SetTheory():
             if a in self.B:
                 result.append(a)
             else:
-                result.append(a)
+                result = []
 
         for b in self.B:
             if b not in result:
                 result.append(b)
-                        
+                                
         return set_style(result)
 
     
-    def cartesian_product(self):
+    def cartesian_product(self,AxB=True):
+        '''
+        Producto cartesiano de dos arreglos
         '''
         
+        PC = []
+        if(AxB):
+            for i in self.A:
+                t1 = []
+                for j in self.B:
+                    t2 = []
+                    t2.append(str(i))
+                    t2.append(str(j))
+                    t1.append((t2))
+                PC.append((t1))
+        else:
+            for i in self.B:
+                t1 = []
+                for j in self.A:
+                    t2 = []
+                    t2.append(str(i))
+                    t2.append(str(j))
+                    t1.append((t2))
+                PC.append((t1))
         '''
-        return None
-       
-
+        PC = []
+        for i in self.A:
+            for j in self.B:
+                PC.append((i,j))
+        
+        return PC
+        '''
+        return PC
     
 
-    def subset(self):
+    def subset(self,AB=True):
         '''
         Check whether one set is a subset of other.
-        Order the elements of both sets and successively compare each elemnt of the first set
-        with each element of the second set.
-        If some element of the first set is not found to equal any element of the second, then
-        the first set is not a subset of the second.
-        But if each element of the first set is found to equal an element of the second set, then
-        the first set is a subset of the second.
         '''
-                
+        isSubset = True
+
+        if AB:
+            for a in self.A:
+                if a not in self.B:
+                    isSubset = False
+
+            if isSubset == False:
+                return "A no es subset de B"
+            else:
+                return "A es subset de B"
+        else:
+            for b in self.B:
+                if b not in self.A:
+                    isSubset = False
+
+            if isSubset == False:
+                return "B no es subset de A"
+            else:
+                return "B es subset de A"
+            
         return None
 
-    def proper_subset(self):
+    def proper_subset(self,AB=True):
         """
-        If C,D are sets from a universe U, we say thar C is a subset of D and write C (subset) D, or D (subset) C, if every element of C is an element of D. If in addition, D contains an element that is not in C, then C is called a proper subset of D, and
+        A is a proper subset of B iff there is at
+        least one element in B that is not in A
+        @No terminado
         """
+
+        isPSubset = True
+
+        if AB:
+            for a in self.A:
+                if a not in self.B:
+                    isPSubset = False
+                else:
+                    isPSubset = True
+                    
+            if isPSubset == False:
+                return "A no es proper subset de B"
+            else:
+                if(len(self.A)==len(self.B)):
+                    return "A no es proper subset de B"
+                else:
+                    return "A es proper subset de B"
+        else:
+            for b in self.B:
+                if b not in self.A:
+                    isPSubset = False
+
+            if isPSubset == False:
+                return "B no es proper subset de A"
+            else:
+                if(len(self.B)==len(self.A)):
+                    return "B no es proper subset de A"
+                else:
+                    return "B es proper subset de A"
+                
         return None
     
-    def symmetric_diff(self):
+    def symmetric_diff(self,AminB=True):
         '''
+        returns all the items present in given sets, except the items in their intersections
         '''
-        return None
+
+        result = []
+        if AminB:
+            for a in self.A:
+                if a in self.B:
+                    result = []
+                else:
+                    result.append(a)
+
+            for b in self.B:
+                if b not in self.A:
+                    result.append(b)
+        else:
+            for b in self.B:
+                if b in self.A:
+                    result = []
+                else:
+                    result.append(b)
+
+            for a in self.A:
+                if a not in self.B:
+                    result.append(a)
+        
+        return set_style(result)
