@@ -100,48 +100,59 @@ function calculateSets(){
 
 
 function calc_relations(){
-    var conjunto1 = document.getElementById("conjunto1").value;
-    var conjunto2 = document.getElementById("conjunto2").value;
+
+    resultados2 = document.getElementById("set-results2");
+    
+    var conjunto1 = document.getElementById("p2_conjunto1").value;
+    var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
     console.log("Relaciones");
+    
+    var resultsContainer2 = document.getElementById("set-results2");
+    resultsContainer2.style.display = "block";
+
+    //Scroll a los resultados
+    resultados2.scrollIntoView();
+    
+    
 }
 
 function calc_funciones(){
-    var conjunto1 = document.getElementById("conjunto1").value;
-    var conjunto2 = document.getElementById("conjunto2").value;
+    var conjunto1 = document.getElementById("p2_conjunto1").value;
+    var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
     console.log("Funciones");
 }
 
 function calc_inyectivas(){
-    var conjunto1 = document.getElementById("conjunto1").value;
-    var conjunto2 = document.getElementById("conjunto2").value;
+    var conjunto1 = document.getElementById("p2_conjunto1").value;
+    var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
     console.log("Funciones Inyectivas");
 }
 
 function calc_sobreyectivas(){
-    var conjunto1 = document.getElementById("conjunto1").value;
-    var conjunto2 = document.getElementById("conjunto2").value;
+    var conjunto1 = document.getElementById("p2_conjunto1").value;
+    var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
     console.log("Funciones Sobreyectivas");
 }
 
 function calc_biyectivas(){
-    var conjunto1 = document.getElementById("conjunto1").value;
-    var conjunto2 = document.getElementById("conjunto2").value;
+    var conjunto1 = document.getElementById("p2_conjunto1").value;
+    var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
     console.log("Funciones Biyectivas");
 }
 
 function calc_especifica(val){
-    var conjunto1 = document.getElementById("conjunto1").value;
-    var conjunto2 = document.getElementById("conjunto2").value;
+    var conjunto1 = document.getElementById("p2_conjunto1").value;
+    var conjunto2 = document.getElementById("p2_conjunto2").value;
     //levantar modal
     if(val!=1){
 	console.log("Especifica");
