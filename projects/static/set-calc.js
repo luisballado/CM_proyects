@@ -95,3 +95,82 @@ function calculateSets(){
 	} 
     });
 }
+
+
+
+
+function calc_relations(){
+    var conjunto1 = document.getElementById("conjunto1").value;
+    var conjunto2 = document.getElementById("conjunto2").value;
+    console.log(conjunto1);
+    console.log(conjunto2);
+    console.log("Relaciones");
+}
+
+function calc_funciones(){
+    var conjunto1 = document.getElementById("conjunto1").value;
+    var conjunto2 = document.getElementById("conjunto2").value;
+    console.log(conjunto1);
+    console.log(conjunto2);
+    console.log("Funciones");
+}
+
+function calc_inyectivas(){
+    var conjunto1 = document.getElementById("conjunto1").value;
+    var conjunto2 = document.getElementById("conjunto2").value;
+    console.log(conjunto1);
+    console.log(conjunto2);
+    console.log("Funciones Inyectivas");
+}
+
+function calc_sobreyectivas(){
+    var conjunto1 = document.getElementById("conjunto1").value;
+    var conjunto2 = document.getElementById("conjunto2").value;
+    console.log(conjunto1);
+    console.log(conjunto2);
+    console.log("Funciones Sobreyectivas");
+}
+
+function calc_biyectivas(){
+    var conjunto1 = document.getElementById("conjunto1").value;
+    var conjunto2 = document.getElementById("conjunto2").value;
+    console.log(conjunto1);
+    console.log(conjunto2);
+    console.log("Funciones Biyectivas");
+}
+
+function calc_especifica(val){
+    var conjunto1 = document.getElementById("conjunto1").value;
+    var conjunto2 = document.getElementById("conjunto2").value;
+    //levantar modal
+    if(val!=1){
+	console.log("Especifica");
+	$("#espModal").modal('show');
+    }else{
+	//enviar peticion con los datos especificos
+	var c_esp = document.getElementById("esp-value").value;
+	
+	//dummy validar que no sea nulo
+	if(c_esp != ""){
+	    //tengo un valor
+	    //hacer llamada ajax aqui
+	    //quitar modal en el success
+	    console.log(conjunto1);
+	    console.log(conjunto2);
+	    console.log(c_esp);
+	    $("#espModal").modal('hide');
+
+	    //si existe un err en la llamada
+	    //usar show_err("error en ajax");
+	    
+	}else{
+	    $("#espModal").modal('hide');
+	    setTimeout(show_err(), 300);
+	}
+    }
+}
+
+//dummy mostrar un error
+function show_err(val){
+    alert('No puede ser nulo');
+}
