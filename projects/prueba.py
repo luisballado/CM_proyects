@@ -41,10 +41,13 @@ B = st.B
 
 #print('###POWER SET A###')
 #print(st.power_set(A))
-
 #print('###POWER SET B###')
 #print(st.power_set(B))
-
 #print(part(['math','is','fun']))
 
-print(st.cartesian_product())
+c_p = ' '.join(str(e) for e in st.cartesian_product())
+
+c_p_d = c_p.replace("[","{")
+cp_style = c_p_d.replace("]","}")
+
+print(cp_style)
