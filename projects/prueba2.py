@@ -82,7 +82,7 @@ relaciones = st.power_set(PC)
 
 resultados = []
 
-calc_functions_and_relations = True
+calc_functions_and_relations = False
 respuesta_arr = []
 
 #hacer en un for para cada elemento
@@ -91,7 +91,7 @@ if calc_functions_and_relations:
         #print('###############')
         tmp = {}
         rf = RFunctions(r)
-        print(rf.rf)
+        #print(rf.rf)
         tmp['relation'] = rf.style()
         tmp['is_relation'] = rf.isRelation()
         tmp['is_function'] = rf.isFunction()
@@ -118,4 +118,4 @@ else:
             #tmp['specific_relation'] = rf.specific_relation()
             respuesta_arr.append(tmp)
     
-print(json.dumps(respuesta_arr,indent=4))
+#print(json.dumps(respuesta_arr,indent=4))

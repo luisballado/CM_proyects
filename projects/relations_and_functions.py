@@ -99,8 +99,24 @@ class RFunctions():
         NO IMPORTA QUE SOBREN
         '''
 
+        
         if (self.isFunction()):
-            return True
+            
+            if len(self.rf) == 1:
+                return True
+            else:
+                #verificar que no se repita el segundo elemento
+                resp = False
+                dom_temp = ''
+                for _r_ in self.rf:
+                    if dom_temp != _r_[1]:
+                        resp = True
+                    else:
+                        resp = False
+                        break
+                    dom_temp = _r_[1]
+            
+                return resp
         else:
             return False
         
@@ -130,7 +146,22 @@ class RFunctions():
         '''
 
         if (self.isFunction()):
-            return True
+            
+            if len(self.rf) == 1:
+                return True
+            else:
+                #verificar que no se repita el segundo elemento
+                resp = False
+                dom_temp = ''
+                for _r_ in self.rf:
+                    if dom_temp != _r_[1]:
+                        resp = True
+                    else:
+                        resp = True
+                        break
+                    dom_temp = _r_[1]
+            
+                return resp
         else:
             return False
         
