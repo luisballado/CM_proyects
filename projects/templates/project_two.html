@@ -27,7 +27,7 @@
     </button>
     <div class="dropdown-menu">
       <a class="dropdown-item" onclick="calc_relations();" href="#">Relaciones</a>
-      <a class="dropdown-item" onclick="calc_funciones();" href="#">Funociones</a>
+      <a class="dropdown-item" onclick="calc_funciones();" href="#">Funciones</a>
       <a class="dropdown-item" onclick="calc_inyectivas();" href="#">Funciones Inyectivas</a>
       <a class="dropdown-item" onclick="calc_sobreyectivas();" href="#">Funciones Sobreyectivas</a>
       <a class="dropdown-item" onclick="calc_biyectivas();" href="#">Funciones Biyectivas</a>
@@ -62,135 +62,11 @@
 
 <br><br>
 
-<div id="set-results2">
-  
-  <h2> Resultados </h2>
-  
+<div id="set-results2" style="padding-right:10%;padding-left:10%;padding-bottom:1%;">
+  <marquee>RESULTADOS</marquee>
+  <div id="type" style="font-size: large;">Lista de resultados</div>
   <div class="table-responsive">
-    <table class="table">
-      <caption>Lista de resultados</caption>
-      <thead>
-	<tr>
-	  <th scope="col">#</th>
-	  <th scope="col">Pares Ordenados</th>
-	  <th scope="col">Relación</th>
-	  <th scope="col">Función</th>
-	  <th scope="col">Fn Inyectiva</th>
-	  <th scope="col">Fn Suprayectiva</th>
-	  <th scope="col">Fn Biyectiva</th>
-	</tr>
-      </thead>
-      <tbody>
-	<tr>
-	  <th scope="row">1</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td>{(),()}</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	  <td style="color:Tomato;">&#10007;</td>
-	  <td style="color:Green">&#10003;</td>
-	</tr>
-      </tbody>
-    </table>
+    <table id="table1" class="table"></table>
   </div>
 </div>
 

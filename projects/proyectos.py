@@ -208,12 +208,244 @@ def project_one():
 #Hacer todos los calculos de funciones en nueva ruta
 @app.route('/calc_functions', methods=['POST'])
 def calc_functions():
+
+    #obtener valores ingresados
+    a = request.json['conjunto1']
+    b = request.json['conjunto2']
+    calculation = request.json['calculation']
     
-    return None
+    if calculation == 'relations':
+
+        st = SetTheory(a,b)
+
+        #producto cartesiano
+        PC = []
+        for i in st.A:
+            for j in st.B:
+                t2 = []
+                t2.append(str(i))
+                t2.append(str(j))
+                PC.append(t2)
+                
+        relaciones = st.power_set(PC)
+        
+        resultados = []
+        
+        calc_functions_and_relations = True
+        respuesta_arr = []
+
+        for r in relaciones:
+            #print('###############')
+            tmp = {}
+            rf = RFunctions(r)
+            print(rf.rf)
+            tmp['relation'] = rf.style()
+            tmp['is_relation'] = rf.isRelation()
+            tmp['is_function'] = rf.isFunction()
+            tmp['is_inyective'] = rf.isInyective()
+            tmp['is_suprayective'] = rf.isSobreyective()
+            tmp['is_biyective'] = rf.isBiyective()
+            #tmp['specific_relation'] = rf.specific_relation()
+            respuesta_arr.append(tmp)
+            
+        return jsonify(respuesta_arr)
+    
+    elif calculation == 'functions':
+
+        st = SetTheory(a,b)
+
+        #producto cartesiano
+        PC = []
+        for i in st.A:
+            for j in st.B:
+                t2 = []
+                t2.append(str(i))
+                t2.append(str(j))
+                PC.append(t2)
+                
+        relaciones = st.power_set(PC)
+        
+        resultados = []
+        
+        calc_functions_and_relations = True
+        respuesta_arr = []
+        
+        for r in relaciones:
+            #print('###############')
+            tmp = {}
+            rf = RFunctions(r)
+            if rf.isFunction():
+                tmp['relation'] = rf.style()
+                tmp['is_relation'] = rf.isRelation()
+                tmp['is_function'] = rf.isFunction()
+                tmp['is_inyective'] = rf.isInyective()
+                tmp['is_suprayective'] = rf.isSobreyective()
+                tmp['is_biyective'] = rf.isBiyective()
+                #tmp['specific_relation'] = rf.specific_relation()
+                respuesta_arr.append(tmp)
+                
+        return jsonify(respuesta_arr)
+
+    elif calculation == 'inyective':
+        st = SetTheory(a,b)
+
+        #producto cartesiano
+        PC = []
+        for i in st.A:
+            for j in st.B:
+                t2 = []
+                t2.append(str(i))
+                t2.append(str(j))
+                PC.append(t2)
+                
+        relaciones = st.power_set(PC)
+        
+        resultados = []
+        
+        calc_functions_and_relations = True
+        respuesta_arr = []
+        
+        for r in relaciones:
+            #print('###############')
+            tmp = {}
+            rf = RFunctions(r)
+            if rf.isFunction() and rf.isInyective():
+                tmp['relation'] = rf.style()
+                tmp['is_relation'] = rf.isRelation()
+                tmp['is_function'] = rf.isFunction()
+                tmp['is_inyective'] = rf.isInyective()
+                tmp['is_suprayective'] = rf.isSobreyective()
+                tmp['is_biyective'] = rf.isBiyective()
+                #tmp['specific_relation'] = rf.specific_relation()
+                respuesta_arr.append(tmp)
+                
+        return jsonify(respuesta_arr)
+
+    elif calculation == 'sobreyective':
+        st = SetTheory(a,b)
+
+        #producto cartesiano
+        PC = []
+        for i in st.A:
+            for j in st.B:
+                t2 = []
+                t2.append(str(i))
+                t2.append(str(j))
+                PC.append(t2)
+                
+        relaciones = st.power_set(PC)
+        
+        resultados = []
+        
+        calc_functions_and_relations = True
+        respuesta_arr = []
+        
+        for r in relaciones:
+            #print('###############')
+            tmp = {}
+            rf = RFunctions(r)
+            if rf.isFunction() and rf.isSobreyective():
+                tmp['relation'] = rf.style()
+                tmp['is_relation'] = rf.isRelation()
+                tmp['is_function'] = rf.isFunction()
+                tmp['is_inyective'] = rf.isInyective()
+                tmp['is_suprayective'] = rf.isSobreyective()
+                tmp['is_biyective'] = rf.isBiyective()
+                #tmp['specific_relation'] = rf.specific_relation()
+                respuesta_arr.append(tmp)
+                
+        return jsonify(respuesta_arr)
+
+    elif calculation == 'biyective':
+        st = SetTheory(a,b)
+
+        #producto cartesiano
+        PC = []
+        for i in st.A:
+            for j in st.B:
+                t2 = []
+                t2.append(str(i))
+                t2.append(str(j))
+                PC.append(t2)
+                
+        relaciones = st.power_set(PC)
+        
+        resultados = []
+        
+        calc_functions_and_relations = True
+        respuesta_arr = []
+        
+        for r in relaciones:
+            #print('###############')
+            tmp = {}
+            rf = RFunctions(r)
+            if rf.isFunction() and rf.isBiyective():
+                tmp['relation'] = rf.style()
+                tmp['is_relation'] = rf.isRelation()
+                tmp['is_function'] = rf.isFunction()
+                tmp['is_inyective'] = rf.isInyective()
+                tmp['is_suprayective'] = rf.isSobreyective()
+                tmp['is_biyective'] = rf.isBiyective()
+                #tmp['specific_relation'] = rf.specific_relation()
+                respuesta_arr.append(tmp)
+                
+        return jsonify(respuesta_arr)
+
+    elif calculation == 'especial':
+        
+        special = request.json['conjuntoe']
+
+        arr1 = ''
+        arr2 = ''
+        c = 0
+        
+        print(special)
+
+        for char in range(len(special)):
+            if special[c] == '(':
+                arr1 = arr1 + special[c+1] + " "
+                arr2 = arr2 + special[c+3] + " "
+            c = c + 1
+
+        print(arr1)
+        print(arr2)
+
+        #sys.exit()
+        a = arr1.replace(" ", "")
+        b = arr2.replace(" ", "")
+    
+        #construir PC
+        arr_x = []
+        for _a_,_b_ in zip(a,b):
+            arr_tmp = []
+            arr_tmp.append(_a_)
+            arr_tmp.append(_b_)
+            arr_x.append(arr_tmp)
+
+        respuesta_arr = []
+
+        for r in [arr_x]:
+            #print('###############')
+            tmp = {}
+            rf = RFunctions(r)
+            print(rf.rf)
+            
+            tmp['is_relation'] = rf.isRelation()
+            tmp['is_function'] = rf.isFunction()
+            tmp['is_inyective'] = rf.isInyective()
+            tmp['is_suprayective'] = rf.isSobreyective()
+            tmp['is_biyective'] = rf.isBiyective()
+            tmp['relation'] = rf.style()
+            #tmp['specific_relation'] = rf.specific_relation()
+            respuesta_arr.append(tmp)
+            
+            #print(rf.rf)
+                    
+        return jsonify(respuesta_arr)
 
 #Pag relacionada al proyecto dos
 @app.route('/project_two', methods=['GET','POST'])
 def project_two():
     resultados = []
     
-    return render_template('project_two.html', resultados = resultados)
+    return render_template('project_two.html', data = resultados)

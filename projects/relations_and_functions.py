@@ -1,4 +1,7 @@
-#Clase para manejar funciones y relaciones
+'''
+Clase para manejar funciones y relaciones
+@autor: Luis Ballado
+'''
 
 class RFunctions():
 

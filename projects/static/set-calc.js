@@ -96,9 +96,6 @@ function calculateSets(){
     });
 }
 
-
-
-
 function calc_relations(){
 
     resultados2 = document.getElementById("set-results2");
@@ -107,7 +104,77 @@ function calc_relations(){
     var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
-    console.log("Relaciones");
+    //console.log("Relaciones");
+
+    var data_sets = {
+	"conjunto1":conjunto1,
+	"conjunto2":conjunto2,
+	"calculation":"relations"
+    };
+    var caption_txt = document.getElementById("type")
+    caption_txt.innerHTML = "Lista de Relaciones";
+    $.ajax({
+	type: "POST",
+	url: "/calc_functions",
+	data: JSON.stringify(data_sets),
+	contentType: "application/json",
+	dataType: 'json',
+	success: function(result) {
+	    $('#table1').html('');
+	    console.log(result);
+	    var row_data = '';
+	    row_data += '<thead><tr><th scope="col">#</th><th scope="col">Pares Ordenados</th><th scope="col">Relación</th><th scope="col">Función</th><th scope="col">Fn Inyectiva</th><th scope="col">Fn Suprayectiva</th><th scope="col">Fn Biyectiva</th></tr></thead>';
+	    let count = 1;
+	    for (var arr in result){
+		var obj = result[arr];
+		
+		row_data += '<tr>';
+		
+		row_data += '<th scope="row">' + count + '</th>';
+		row_data += '<td>' + obj['relation'] + '</td>';
+		if (obj['is_relation'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_function'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_inyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_suprayective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_biyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		
+		row_data += '</tr>'
+		count = count + 1;
+	    };
+	    $('#table1').append(row_data);
+	    
+	    var resultsContainer2 = document.getElementById("set-results2");
+	    resultsContainer2.style.display = "block";
+	    
+	    //Scroll a los resultados
+	    resultados2.scrollIntoView();
+	}
+    });
     
     var resultsContainer2 = document.getElementById("set-results2");
     resultsContainer2.style.display = "block";
@@ -123,7 +190,83 @@ function calc_funciones(){
     var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
-    console.log("Funciones");
+    //console.log("Funciones");
+
+    resultados2 = document.getElementById("set-results2");
+    
+    var data_sets = {
+	"conjunto1":conjunto1,
+	"conjunto2":conjunto2,
+	"calculation":"functions"
+	
+    };
+
+    var caption_txt = document.getElementById("type")
+    caption_txt.innerHTML = "Lista de Funciones";
+    
+    $.ajax({
+	type: "POST",
+	url: "/calc_functions",
+	data: JSON.stringify(data_sets),
+	contentType: "application/json",
+	dataType: 'json',
+	success: function(result) {
+	    $('#table1').html('');
+	    console.log(result);
+	    var row_data = '';
+	    row_data += '<thead><tr><th scope="col">#</th><th scope="col">Pares Ordenados</th><th scope="col">Relación</th><th scope="col">Función</th><th scope="col">Fn Inyectiva</th><th scope="col">Fn Suprayectiva</th><th scope="col">Fn Biyectiva</th></tr></thead>';
+	    let count = 1;
+	    for (var arr in result){
+		var obj = result[arr];
+		
+		row_data += '<tr>';
+		
+		row_data += '<th scope="row">' + count + '</th>';
+		row_data += '<td>' + obj['relation'] + '</td>';
+		if (obj['is_relation'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_function'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_inyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_suprayective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_biyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		
+		row_data += '</tr>'
+		count = count + 1;
+	    };
+	    $('#table1').append(row_data);
+	    
+	    var resultsContainer2 = document.getElementById("set-results2");
+	    resultsContainer2.style.display = "block";
+	    
+	    //Scroll a los resultados
+	    resultados2.scrollIntoView();
+	} 
+    });
+    
 }
 
 function calc_inyectivas(){
@@ -131,7 +274,84 @@ function calc_inyectivas(){
     var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
-    console.log("Funciones Inyectivas");
+    //console.log("Funciones Inyectivas");
+
+    resultados2 = document.getElementById("set-results2");
+    
+    var data_sets = {
+	"conjunto1":conjunto1,
+	"conjunto2":conjunto2,
+	"calculation":"inyective"
+	
+    };
+
+    var caption_txt = document.getElementById("type")
+    caption_txt.innerHTML = "Lista de Funciones Inyectivas";
+    
+    $.ajax({
+	type: "POST",
+	url: "/calc_functions",
+	data: JSON.stringify(data_sets),
+	contentType: "application/json",
+	dataType: 'json',
+	success: function(result) {
+	    $('#table1').html('');
+	    console.log('INYECTIVE');
+	    console.log(result);
+	    var row_data = '';
+	    row_data += '<thead><tr><th scope="col">#</th><th scope="col">Pares Ordenados</th><th scope="col">Relación</th><th scope="col">Función</th><th scope="col">Fn Inyectiva</th><th scope="col">Fn Suprayectiva</th><th scope="col">Fn Biyectiva</th></tr></thead>';
+	    let count = 1;
+	    for (var arr in result){
+		var obj = result[arr];
+		
+		row_data += '<tr>';
+		
+		row_data += '<th scope="row">' + count + '</th>';
+		row_data += '<td>' + obj['relation'] + '</td>';
+		if (obj['is_relation'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_function'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_inyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_suprayective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_biyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		
+		row_data += '</tr>'
+		count = count + 1;
+	    };
+	    $('#table1').append(row_data);
+	    
+	    var resultsContainer2 = document.getElementById("set-results2");
+	    resultsContainer2.style.display = "block";
+	    
+	    //Scroll a los resultados
+	    resultados2.scrollIntoView();
+	} 
+    });
+    
 }
 
 function calc_sobreyectivas(){
@@ -139,7 +359,84 @@ function calc_sobreyectivas(){
     var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
-    console.log("Funciones Sobreyectivas");
+    //console.log("Funciones Sobreyectivas");
+
+    resultados2 = document.getElementById("set-results2");
+    
+    var data_sets = {
+	"conjunto1":conjunto1,
+	"conjunto2":conjunto2,
+	"calculation":"sobreyective"
+	
+    };
+
+    var caption_txt = document.getElementById("type")
+    caption_txt.innerHTML = "Lista de Funciones Sobreyectivas";
+    
+    $.ajax({
+	type: "POST",
+	url: "/calc_functions",
+	data: JSON.stringify(data_sets),
+	contentType: "application/json",
+	dataType: 'json',
+	success: function(result) {
+	    $('#table1').html('');
+	    console.log(result);
+	    var row_data = '';
+	    row_data += '<thead><tr><th scope="col">#</th><th scope="col">Pares Ordenados</th><th scope="col">Relación</th><th scope="col">Función</th><th scope="col">Fn Inyectiva</th><th scope="col">Fn Suprayectiva</th><th scope="col">Fn Biyectiva</th></tr></thead>';
+	    let count = 1;
+	    for (var arr in result){
+		var obj = result[arr];
+		
+		row_data += '<tr>';
+		
+		row_data += '<th scope="row">' + count + '</th>';
+		row_data += '<td>' + obj['relation'] + '</td>';
+		if (obj['is_relation'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_function'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_inyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_suprayective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_biyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		
+		row_data += '</tr>'
+		count = count + 1;
+	    };
+	    $('#table1').append(row_data);
+	    
+	    var resultsContainer2 = document.getElementById("set-results2");
+	    resultsContainer2.style.display = "block";
+	    
+	    //Scroll a los resultados
+	    resultados2.scrollIntoView();
+	    
+	} 
+    });
+    
 }
 
 function calc_biyectivas(){
@@ -147,7 +444,83 @@ function calc_biyectivas(){
     var conjunto2 = document.getElementById("p2_conjunto2").value;
     console.log(conjunto1);
     console.log(conjunto2);
-    console.log("Funciones Biyectivas");
+    //console.log("Funciones Biyectivas");
+
+    resultados2 = document.getElementById("set-results2");
+    
+    var data_sets = {
+	"conjunto1":conjunto1,
+	"conjunto2":conjunto2,
+	"calculation":"biyective"
+	
+    };
+
+    var caption_txt = document.getElementById("type")
+    caption_txt.innerHTML = "Lista de Funciones Biyectivas";
+    
+    $.ajax({
+	type: "POST",
+	url: "/calc_functions",
+	data: JSON.stringify(data_sets),
+	contentType: "application/json",
+	dataType: 'json',
+	success: function(result) {
+	    $('#table1').html('');
+	    console.log(result);
+	    var row_data = '';
+	    row_data += '<thead><tr><th scope="col">#</th><th scope="col">Pares Ordenados</th><th scope="col">Relación</th><th scope="col">Función</th><th scope="col">Fn Inyectiva</th><th scope="col">Fn Suprayectiva</th><th scope="col">Fn Biyectiva</th></tr></thead>';
+	    let count = 1;
+	    for (var arr in result){
+		var obj = result[arr];
+		
+		row_data += '<tr>';
+		
+		row_data += '<th scope="row">' + count + '</th>';
+		row_data += '<td>' + obj['relation'] + '</td>';
+		if (obj['is_relation'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_function'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_inyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_suprayective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		if (obj['is_biyective'] == true){
+		    row_data += '<td style="color:Green;">&#10003;</td>';
+		}else{
+		    row_data += '<td style="color:Tomato;">&#10007;</td>';
+		}
+		
+		
+		row_data += '</tr>'
+		count = count + 1;
+	    };
+	    $('#table1').append(row_data);
+	    
+	    var resultsContainer2 = document.getElementById("set-results2");
+	    resultsContainer2.style.display = "block";
+	    
+	    //Scroll a los resultados
+	    resultados2.scrollIntoView();
+	} 
+    });
+    
 }
 
 function calc_especifica(val){
@@ -155,9 +528,12 @@ function calc_especifica(val){
     var conjunto2 = document.getElementById("p2_conjunto2").value;
     //levantar modal
     if(val!=1){
-	console.log("Especifica");
+	//console.log("Especifica");
 	$("#espModal").modal('show');
     }else{
+
+	resultados2 = document.getElementById("set-results2");
+	
 	//enviar peticion con los datos especificos
 	var c_esp = document.getElementById("esp-value").value;
 	
@@ -171,6 +547,82 @@ function calc_especifica(val){
 	    console.log(c_esp);
 	    $("#espModal").modal('hide');
 
+	    
+	    var data_sets = {
+		"conjunto1":conjunto1,
+		"conjunto2":conjunto2,
+		"conjuntoe":c_esp,
+		"calculation":"especial"
+		
+	    };
+
+	    var caption_txt = document.getElementById("type")
+	    caption_txt.innerHTML = "Lista Especial";
+	    
+	    $.ajax({
+		type: "POST",
+		url: "/calc_functions",
+		data: JSON.stringify(data_sets),
+		contentType: "application/json",
+		dataType: 'json',
+		success: function(result) {
+		    $('#table1').html('');
+		    console.log(result);
+		    var row_data = '';
+		    row_data += '<thead><tr><th scope="col">#</th><th scope="col">Pares Ordenados</th><th scope="col">Relación</th><th scope="col">Función</th><th scope="col">Fn Inyectiva</th><th scope="col">Fn Suprayectiva</th><th scope="col">Fn Biyectiva</th></tr></thead>';
+		    let count = 1;
+		    for (var arr in result){
+			var obj = result[arr];
+			
+			row_data += '<tr>';
+			
+			row_data += '<th scope="row">' + count + '</th>';
+			row_data += '<td>' + obj['relation'] + '</td>';
+			if (obj['is_relation'] == true){
+			    row_data += '<td style="color:Green;">&#10003;</td>';
+			}else{
+			    row_data += '<td style="color:Tomato;">&#10007;</td>';
+			}
+
+			if (obj['is_function'] == true){
+			    row_data += '<td style="color:Green;">&#10003;</td>';
+			}else{
+			    row_data += '<td style="color:Tomato;">&#10007;</td>';
+			}
+
+			if (obj['is_inyective'] == true){
+			    row_data += '<td style="color:Green;">&#10003;</td>';
+			}else{
+			    row_data += '<td style="color:Tomato;">&#10007;</td>';
+			}
+
+			if (obj['is_suprayective'] == true){
+			    row_data += '<td style="color:Green;">&#10003;</td>';
+			}else{
+			    row_data += '<td style="color:Tomato;">&#10007;</td>';
+			}
+
+			if (obj['is_biyective'] == true){
+			    row_data += '<td style="color:Green;">&#10003;</td>';
+			}else{
+			    row_data += '<td style="color:Tomato;">&#10007;</td>';
+			}
+			
+			
+			row_data += '</tr>'
+			count = count + 1;
+		    };
+		    $('#table1').append(row_data);
+
+		    var resultsContainer2 = document.getElementById("set-results2");
+		    resultsContainer2.style.display = "block";
+		    
+		    //Scroll a los resultados
+		    resultados2.scrollIntoView();
+		    
+		} 
+	    });
+	    
 	    //si existe un err en la llamada
 	    //usar show_err("error en ajax");
 	    
