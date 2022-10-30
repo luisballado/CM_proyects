@@ -128,10 +128,8 @@ class SetTheory():
             
             for item in peque_set:
                 subsets.append(item + [ult_item])
-                A.append(set_style(item+[ult_item]))
-                print(A)
+                #A.append(set_style(item+[ult_item]))
                 
-
             result = peque_set + subsets
             
             return result

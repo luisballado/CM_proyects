@@ -3,6 +3,7 @@ from flask import jsonify
 import json
 
 from set_theory import *
+from relations_and_functions import *
 
 app = Flask(__name__)
 
@@ -203,6 +204,12 @@ def project_one():
         #return jsonify(respuesta) 
     
     return render_template('project_one.html',resultados=resultados)
+
+#Hacer todos los calculos de funciones en nueva ruta
+@app.route('/calc_functions', methods=['POST'])
+def calc_functions():
+    
+    return None
 
 #Pag relacionada al proyecto dos
 @app.route('/project_two', methods=['GET','POST'])
