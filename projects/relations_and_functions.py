@@ -50,11 +50,14 @@ class RFunctions():
     def isRelation(self):
         '''
         Determinar si es una relacion
-        Una relación es una correspondencia de elementos entre dos conjuntos
+        A relation in math is a set of ordered pairs
+        defining the relation between two sets.
+        A relation may or may not be a function
+        Example: {(1,x),(1,y),(4,z)}
         '''
 
         if len(self.rf) == 0:
-            return False
+            return True
         else:
             return True
 
@@ -98,7 +101,6 @@ class RFunctions():
         4
         NO IMPORTA QUE SOBREN
         '''
-
         
         if (self.isFunction()):
             
@@ -180,7 +182,7 @@ class RFunctions():
         4 --> c
         '''
         
-        if self.isFunction() and self.isInyective() and self.isSobreyective():
+        if self.isInyective() and self.isSobreyective():
             return True
         else:
             return False

@@ -545,8 +545,6 @@ function calc_especifica(val){
 	    console.log(conjunto1);
 	    console.log(conjunto2);
 	    console.log(c_esp);
-	    $("#espModal").modal('hide');
-
 	    
 	    var data_sets = {
 		"conjunto1":conjunto1,
@@ -566,6 +564,9 @@ function calc_especifica(val){
 		contentType: "application/json",
 		dataType: 'json',
 		success: function(result) {
+		    //Quitar si todo esta bien
+		    $("#espModal").modal('hide');
+		    
 		    $('#table1').html('');
 		    console.log(result);
 		    var row_data = '';
@@ -620,7 +621,10 @@ function calc_especifica(val){
 		    //Scroll a los resultados
 		    resultados2.scrollIntoView();
 		    
-		} 
+		},
+		error(request,status,error){
+		    alert(request.responseText);
+		}
 	    });
 	    
 	    //si existe un err en la llamada
