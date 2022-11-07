@@ -178,7 +178,7 @@ class RFunctions():
 
         if (self.isFunction()):
 
-            if len(self.rf) >= len(self.co_dominio):
+            if len(self.rf) >= len(self.co_dominio) and len(self.rf) == len(self.dominio):
 
                 #verificar que se usen todos del co-dominio
                 _co_dominios_ = []
@@ -194,6 +194,7 @@ class RFunctions():
                     else:
                         resp = False
                         break                
+
                 return resp
             else:
                 return False
