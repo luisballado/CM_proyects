@@ -5,10 +5,12 @@ Clase para manejar funciones y relaciones
 
 class RFunctions():
 
-    def __init__(self,rf):
+    def __init__(self,rf,_A_,_B_):
 
         self.rf = rf
-
+        self.dominio = _A_
+        self.co_dominio = _B_
+        
     def style(self):
         """
         regresar con estilo
@@ -103,9 +105,35 @@ class RFunctions():
         '''
         
         if (self.isFunction()):
+
+            #para que sea inyectiva se tienen que usar todos los del dominio
+
+            if len(self.rf) == len(self.dominio):
+                
+                #identificar repetidos en codominio de la relacion
+                _co_dominios_ = []
+                for _r_ in self.rf:
+                    _co_dominios_.append(_r_[1])
+                
+                resp = False
+                vistos = []
+                for _r_ in _co_dominios_:
+                    
+                    if _r_ in vistos:
+                        resp = False
+                        break
+                    else:
+                        resp = True
+                    
+                    vistos.append(_r_)
             
+                return resp
+            else:
+                return False
+            
+            '''
             if len(self.rf) == 1:
-                return True
+                return False
             else:
                 #verificar que no se repita el segundo elemento
                 resp = False
@@ -119,6 +147,7 @@ class RFunctions():
                     dom_temp = _r_[1]
             
                 return resp
+            '''
         else:
             return False
         
@@ -148,22 +177,26 @@ class RFunctions():
         '''
 
         if (self.isFunction()):
-            
-            if len(self.rf) == 1:
-                return True
-            else:
-                #verificar que no se repita el segundo elemento
-                resp = False
-                dom_temp = ''
+
+            if len(self.rf) >= len(self.co_dominio):
+
+                #verificar que se usen todos del co-dominio
+                _co_dominios_ = []
                 for _r_ in self.rf:
-                    if dom_temp != _r_[1]:
+                    _co_dominios_.append(_r_[1])
+                
+                resp = False
+                vistos = []
+                for _r_ in self.co_dominio:
+                    
+                    if _r_ in _co_dominios_:
                         resp = True
                     else:
-                        resp = True
-                        break
-                    dom_temp = _r_[1]
-            
+                        resp = False
+                        break                
                 return resp
+            else:
+                return False
         else:
             return False
         

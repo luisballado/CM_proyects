@@ -212,6 +212,7 @@ def calc_functions():
     #obtener valores ingresados
     a = request.json['conjunto1']
     b = request.json['conjunto2']
+    
     calculation = request.json['calculation']
     
     if calculation == 'relations':
@@ -237,8 +238,8 @@ def calc_functions():
         for r in relaciones:
             #print('###############')
             tmp = {}
-            rf = RFunctions(r)
-            print(rf.rf)
+            rf = RFunctions(r,st.A,st.B)
+            #print(rf.rf)
             tmp['relation'] = rf.style()
             tmp['is_relation'] = rf.isRelation()
             tmp['is_function'] = rf.isFunction()
@@ -273,7 +274,7 @@ def calc_functions():
         for r in relaciones:
             #print('###############')
             tmp = {}
-            rf = RFunctions(r)
+            rf = RFunctions(r,st.A,st.B)
             #if rf.isFunction():
             tmp['relation'] = rf.style()
             tmp['is_relation'] = rf.isRelation()
@@ -308,16 +309,16 @@ def calc_functions():
         for r in relaciones:
             #print('###############')
             tmp = {}
-            rf = RFunctions(r)
-            #if rf.isFunction() and rf.isInyective():
-            tmp['relation'] = rf.style()
-            tmp['is_relation'] = rf.isRelation()
-            tmp['is_function'] = rf.isFunction()
-            tmp['is_inyective'] = rf.isInyective()
-            tmp['is_suprayective'] = rf.isSobreyective()
-            tmp['is_biyective'] = rf.isBiyective()
-            #tmp['specific_relation'] = rf.specific_relation()
-            respuesta_arr.append(tmp)
+            rf = RFunctions(r,st.A,st.B)
+            if rf.isInyective():
+                tmp['relation'] = rf.style()
+                tmp['is_relation'] = rf.isRelation()
+                tmp['is_function'] = rf.isFunction()
+                tmp['is_inyective'] = True #rf.isInyective()
+                tmp['is_suprayective'] = rf.isSobreyective()
+                tmp['is_biyective'] = rf.isBiyective()
+                #tmp['specific_relation'] = rf.specific_relation()
+                respuesta_arr.append(tmp)
                 
         return jsonify(respuesta_arr)
 
@@ -343,16 +344,16 @@ def calc_functions():
         for r in relaciones:
             #print('###############')
             tmp = {}
-            rf = RFunctions(r)
-            #if rf.isFunction() and rf.isSobreyective():
-            tmp['relation'] = rf.style()
-            tmp['is_relation'] = rf.isRelation()
-            tmp['is_function'] = rf.isFunction()
-            tmp['is_inyective'] = rf.isInyective()
-            tmp['is_suprayective'] = rf.isSobreyective()
-            tmp['is_biyective'] = rf.isBiyective()
-            #tmp['specific_relation'] = rf.specific_relation()
-            respuesta_arr.append(tmp)
+            rf = RFunctions(r,st.A,st.B)
+            if rf.isSobreyective():
+                tmp['relation'] = rf.style()
+                tmp['is_relation'] = rf.isRelation()
+                tmp['is_function'] = rf.isFunction()
+                tmp['is_inyective'] = rf.isInyective()
+                tmp['is_suprayective'] = rf.isSobreyective()
+                tmp['is_biyective'] = rf.isBiyective()
+                #tmp['specific_relation'] = rf.specific_relation()
+                respuesta_arr.append(tmp)
                 
         return jsonify(respuesta_arr)
 
@@ -378,21 +379,21 @@ def calc_functions():
         for r in relaciones:
             #print('###############')
             tmp = {}
-            rf = RFunctions(r)
-            #if rf.isFunction() and rf.isBiyective():
-            tmp['relation'] = rf.style()
-            tmp['is_relation'] = rf.isRelation()
-            tmp['is_function'] = rf.isFunction()
-            tmp['is_inyective'] = rf.isInyective()
-            tmp['is_suprayective'] = rf.isSobreyective()
-            tmp['is_biyective'] = rf.isBiyective()
-            #tmp['specific_relation'] = rf.specific_relation()
-            respuesta_arr.append(tmp)
+            rf = RFunctions(r,st.A,st.B)
+            if rf.isBiyective():
+                tmp['relation'] = rf.style()
+                tmp['is_relation'] = rf.isRelation()
+                tmp['is_function'] = rf.isFunction()
+                tmp['is_inyective'] = rf.isInyective()
+                tmp['is_suprayective'] = rf.isSobreyective()
+                tmp['is_biyective'] = rf.isBiyective()
+                #tmp['specific_relation'] = rf.specific_relation()
+                respuesta_arr.append(tmp)
             
         return jsonify(respuesta_arr)
 
     elif calculation == 'especial':
-
+        st = SetTheory(a,b)
         #Validar que el conjunto especial forme parte del Dominio y Co-dominio
         special = request.json['conjuntoe']
         
@@ -440,9 +441,9 @@ def calc_functions():
         for r in [arr_x]:
             print('###############')
             tmp = {}
-            rf = RFunctions(r)
+            rf = RFunctions(r,st.A,st.B)
             print("RF")
-            print(rf.rf)
+            #print(rf.rf)
             
             tmp['is_relation'] = rf.isRelation()
             tmp['is_function'] = rf.isFunction()
@@ -461,5 +462,4 @@ def calc_functions():
 @app.route('/project_two', methods=['GET','POST'])
 def project_two():
     resultados = []
-    
     return render_template('project_two.html', data = resultados)
